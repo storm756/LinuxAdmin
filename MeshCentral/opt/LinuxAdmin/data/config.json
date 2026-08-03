@@ -1,0 +1,56 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Ylianst/MeshCentral/master/meshcentral-config-schema.json",
+  "settings": {
+    "plugins":{
+      "enabled": false
+    },
+    "cert": "10.22.10.103",
+    "_WANonly": true,
+    "_LANonly": true,
+    "_sessionKey": "MyReallySecretPassword1",
+    "port": 443,
+    "aliasPort": 8843,
+    "redirPort": 80,
+    "_redirAliasPort": 80,
+    "AgentPong": 300,
+    "TLSOffload": false,
+    "SelfUpdate": false,
+    "AllowFraming": false,
+    "WebRTC": false,
+    "_mongoDb": "",
+    "_postgres": {
+      "host": "",
+      "port": "",
+      "user": "",
+      "password": "",
+      "database": ""
+    },
+    "_mariaDB": {
+      "host": "",
+      "port": "",
+      "user": "",
+      "password": "",
+      "database": ""
+    }
+  },
+  "domains": {
+    "": {
+      "_title": "Linuxadmin",
+      "_title2": "Servername",
+      "minify": false,
+      "TitlePicture": "/opt/meshcentral/meshcentral-files/domain/user-linuxadmin/Public/mlogo2.png",
+      "loginPicture": "/opt/meshcentral/meshcentral-files/domain/user-linuxadmin/Public/mloginimage.png",
+      "NewAccounts": true,
+      "localSessionRecording": true,
+      "_userNameIsEmail": true,
+      "_certUrl": "my.reverse.proxy",
+      "allowedOrigin": true
+    }
+  },
+  "_letsencrypt": {
+    "__comment__": "Requires NodeJS 8.x or better, Go to https://letsdebug.net/ first before>",
+    "_email": "myemail@mydomain.com",
+    "_names": "myserver.mydomain.com",
+    "production": false
+  }
+}

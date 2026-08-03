@@ -1,0 +1,20 @@
+-------- 7/23/2025, 8:40:26 AM ---- 1.1.48 --------
+
+Error: ENOENT: no such file or directory, stat '/opt/meshcentral/user_files/domain/user-linuxadmin/Public/mloginimage.png'
+
+
+-------- 7/23/2025, 8:44:34 AM ---- 1.1.48 --------
+
+Error: ENOENT: no such file or directory, stat '/opt/meshcentral/meshcentral-files/domain/user-linuxadmin/Public/mlogo.png'
+
+
+-------- 7/23/2025, 8:48:42 AM ---- 1.1.48 --------
+
+Error: ENOENT: no such file or directory, stat '/opt/meshcentral/meshcentral-files/domain/user-linuxadmin/Public/mlogo.png'
+
+
+-------- 7/23/2025, 8:50:54 AM ---- 1.1.48 --------
+
+Error: ENOENT: no such file or directory, stat '/opt/meshcentral/meshcentral-files/domain/user-linuxadmin/Public/mlogo.png'
+
+
