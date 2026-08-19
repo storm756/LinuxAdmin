@@ -263,11 +263,11 @@
             if (body.classList.contains('light-theme')) {
                 body.classList.replace('light-theme', 'dark-theme');
                 themeBtnIcon.classList.replace('ph-moon', 'ph-sun');
-                localStorage.setItem('nexus-theme', 'dark');
+                localStorage.setItem('linuxadmin-theme', 'dark');
             } else {
                 body.classList.replace('dark-theme', 'light-theme');
                 themeBtnIcon.classList.replace('ph-sun', 'ph-moon');
-                localStorage.setItem('nexus-theme', 'light');
+                localStorage.setItem('linuxadmin-theme', 'light');
             }
             // Re-render charts to pick up new CSS variables
             destroyCharts();
@@ -275,7 +275,7 @@
         }
 
         function checkThemePreference() {
-            const savedTheme = localStorage.getItem('nexus-theme');
+            const savedTheme = localStorage.getItem('linuxadmin-theme');
             if (savedTheme === 'dark') {
                 document.body.classList.replace('light-theme', 'dark-theme');
                 document.querySelector('#theme-btn i').classList.replace('ph-moon', 'ph-sun');
