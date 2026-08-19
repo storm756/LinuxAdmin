@@ -1,0 +1,24 @@
+cd /opt
+sudo tar -xzvf LinuxAdmin_backup.tar.gz
+
+docker run -d \
+  --name LinuxAdmin \
+  --restart unless-stopped \
+  -p 8880:80 \
+  -p 8843:443 \
+  -v /opt/LinuxAdmin/data:/opt/meshcentral/meshcentral-data \
+  -v /opt/LinuxAdmin/user_files:/opt/meshcentral/meshcentral-files \
+  ghcr.io/ylianst/meshcentral:master
+
+
+
+
+opensearchdashboards.yml:
+opensearchDashboards.branding.applicationTitle: "LinuxAdmin"
+
+wazuh.yml:
+customization.reports.header: "LinuxAdmin"
+customization.reports.footer: "LinuxAdmin"
+
+
+

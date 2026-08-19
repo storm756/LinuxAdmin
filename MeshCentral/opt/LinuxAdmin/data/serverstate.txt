@@ -1,0 +1,10 @@
+time=1787123023545
+state=running
+server-pid=31
+server-parent-pid=20
+redirect-port=80
+mps-port=4433
+mps-name=10.22.12.92
+servername=10.22.12.92
+https-port=443
+https-aliasport=8843

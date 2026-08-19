@@ -1,0 +1,38 @@
+-------- 7/23/2025, 8:40:26 AM ---- 1.1.48 --------
+
+Error: ENOENT: no such file or directory, stat '/opt/meshcentral/user_files/domain/user-linuxadmin/Public/mloginimage.png'
+
+
+-------- 7/23/2025, 8:44:34 AM ---- 1.1.48 --------
+
+Error: ENOENT: no such file or directory, stat '/opt/meshcentral/meshcentral-files/domain/user-linuxadmin/Public/mlogo.png'
+
+
+-------- 7/23/2025, 8:48:42 AM ---- 1.1.48 --------
+
+Error: ENOENT: no such file or directory, stat '/opt/meshcentral/meshcentral-files/domain/user-linuxadmin/Public/mlogo.png'
+
+
+-------- 7/23/2025, 8:50:54 AM ---- 1.1.48 --------
+
+Error: ENOENT: no such file or directory, stat '/opt/meshcentral/meshcentral-files/domain/user-linuxadmin/Public/mlogo.png'
+
+
+-------- 8/17/2026, 10:20:03 AM ---- 1.2.4 --------
+
+(node:31) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+
+-------- 8/18/2026, 7:37:25 AM ---- 1.2.4 --------
+
+(node:30) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+
+-------- 8/19/2026, 7:03:43 AM ---- 1.2.4 --------
+
+(node:31) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+

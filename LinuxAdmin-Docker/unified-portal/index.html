@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinuxAdmin | Unified Security</title>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="light-theme">
+    
+    <div class="app-container" id="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <i class="ph-fill ph-hexagon logo-icon"></i> 
+                <span>LinuxAdmin</span>
+            </div>
+            
+            <div class="sidebar-scroll">
+                <div class="sidebar-section">
+                    <div class="section-title">CORE SYSTEMS</div>
+                    <button class="nav-item active" onclick="switchTab('overview')"><i class="ph ph-squares-four"></i> Dashboard</button>
+                    <button class="nav-item" onclick="switchTab('wazuh')"><i class="ph ph-shield-check"></i> SOC Operations</button>
+                    <button class="nav-item" onclick="switchTab('meshcentral')"><i class="ph ph-desktop"></i> Fleet Management</button>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="section-title">TELEMETRY</div>
+                    <button class="nav-item dummy-link"><i class="ph ph-warning-circle"></i> Active Alerts <span class="badge">12</span></button>
+                    <button class="nav-item dummy-link"><i class="ph ph-chart-bar"></i> Reporting</button>
+                    <button class="nav-item dummy-link"><i class="ph ph-network"></i> Network Maps</button>
+                </div>
+
+                <div class="sidebar-section" style="margin-top: auto; padding-top: 20px;">
+                    <div class="section-title">ADMINISTRATION</div>
+                    <button class="nav-item dummy-link"><i class="ph ph-users"></i> Users</button>
+                    <button class="nav-item dummy-link"><i class="ph ph-gear"></i> System Settings</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <div class="main-wrapper" id="main-wrapper">
+            
+            <!-- Topbar Header -->
+            <header class="topbar" id="topbar">
+                <div class="search-box">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" placeholder="Search across systems...">
+                    <span class="shortcut-key">⌘+K</span>
+                </div>
+                
+                <div class="header-actions">
+                    <button class="icon-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle Dark Mode">
+                        <i class="ph ph-moon"></i>
+                    </button>
+                    <button class="icon-btn notification" title="Notifications"><i class="ph ph-bell"></i><span class="dot"></span></button>
+                    
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff&rounded=true" class="avatar" alt="User">
+                        <div class="user-info">
+                            <span class="user-name">Admin User</span>
+                            <span class="user-role">System Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="content-area">
+                
+                <!-- Overview / Dashboard Tab -->
+                <div id="overview" class="tab-content active">
+                    
+                    <div class="dashboard-topbar">
+                        <h2>Executive Summary</h2>
+                        <div class="dashboard-controls">
+                            <button class="control-btn"><i class="ph ph-calendar-blank"></i> Last 24 Hours</button>
+                            <button class="control-btn"><i class="ph ph-export"></i> Generate Report</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Top Metric Cards -->
+                    <div class="metrics-row">
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <span><i class="ph ph-desktop"></i> Managed Assets</span>
+                            </div>
+                            <div class="metric-value-row">
+                                <h3>55</h3>
+                                <span class="pill green">ONLINE</span>
+                            </div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <span><i class="ph ph-shield-warning"></i> Threats Blocked</span>
+                            </div>
+                            <div class="metric-value-row">
+                                <h3>1,402</h3>
+                                <span class="pill red">+12% <i class="ph ph-trend-up"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-header">
+                                <span><i class="ph ph-activity"></i> System Load</span>
+                            </div>
+                            <div class="metric-value-row">
+                                <h3>24%</h3>
+                                <span class="pill green">STABLE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row -->
+                    <div class="charts-row">
+                        <div class="chart-card main-chart">
+                            <div class="chart-header">
+                                <div class="chart-title">
+                                    <span><i class="ph ph-chart-line-up"></i> Security Event Timeline</span>
+                                </div>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="eventsChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card side-chart">
+                            <div class="chart-header">
+                                <div class="chart-title">
+                                    <span><i class="ph ph-pie-chart"></i> OS Distribution</span>
+                                </div>
+                            </div>
+                            <div class="chart-body" style="display: flex; justify-content: center; align-items: center;">
+                                <canvas id="osChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Row: Table & Additional Chart -->
+                    <div class="bottom-row">
+                        <div class="table-card">
+                            <div class="chart-header">
+                                <div class="chart-title">
+                                    <span><i class="ph ph-warning"></i> Critical Alerts (Live)</span>
+                                </div>
+                                <button class="control-btn" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">View All</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Endpoint</th>
+                                            <th>Severity</th>
+                                            <th>Event Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>10:42 AM</td>
+                                            <td>SRV-DC-01</td>
+                                            <td><span class="pill red">CRITICAL</span></td>
+                                            <td>Multiple failed logins</td>
+                                        </tr>
+                                        <tr>
+                                            <td>09:15 AM</td>
+                                            <td>LPT-ENG-22</td>
+                                            <td><span class="pill orange">HIGH</span></td>
+                                            <td>Malware signature detected</td>
+                                        </tr>
+                                        <tr>
+                                            <td>08:30 AM</td>
+                                            <td>SRV-WEB-02</td>
+                                            <td><span class="pill orange">HIGH</span></td>
+                                            <td>Suspicious process spawn</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Yesterday</td>
+                                            <td>LPT-HR-05</td>
+                                            <td><span class="pill green">INFO</span></td>
+                                            <td>Agent restarted successfully</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- SOC Operations (Wazuh) Tab -->
+                <div id="wazuh" class="tab-content iframe-container">
+                    <div class="focus-bar">
+                        <span>SOC Operations (Wazuh)</span>
+                        <button class="focus-btn" onclick="toggleFocus()"><i class="ph ph-corners-out"></i> Focus Mode</button>
+                    </div>
+                    <iframe id="wazuh-frame" src="" frameborder="0"></iframe>
+                </div>
+
+                <!-- Fleet Management (MeshCentral) Tab -->
+                <div id="meshcentral" class="tab-content iframe-container">
+                    <div class="focus-bar">
+                        <span>Fleet Management (MeshCentral)</span>
+                        <button class="focus-btn" onclick="toggleFocus()"><i class="ph ph-corners-out"></i> Focus Mode</button>
+                    </div>
+                    <iframe id="mesh-frame" src="" frameborder="0"></iframe>
+                </div>
+
+            </main>
+        </div>
+    </div>
+    
+    <!-- Floating Exit Focus Button (Hidden by default) -->
+    <button id="exit-focus-btn" class="exit-focus-btn" onclick="toggleFocus()">
+        <i class="ph ph-corners-in"></i> Exit Focus
+    </button>
+
+    <script>
+        // Setup IFrames dynamically
+        document.addEventListener('DOMContentLoaded', () => {
+            const hostname = window.location.hostname;
+            document.getElementById('wazuh-frame').src = `https://${hostname}:8443`;
+            document.getElementById('mesh-frame').src = `https://${hostname}:8843`;
+            initCharts();
+            checkThemePreference();
+        });
+
+        // Tab Switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item:not(.dummy-link)').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Dummy Links
+        document.querySelectorAll('.dummy-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('This is a structural placeholder to demonstrate layout scaling.');
+            });
+        });
+
+        // Focus Mode Logic
+        function toggleFocus() {
+            const container = document.getElementById('app-container');
+            container.classList.toggle('focus-mode');
+        }
+
+        // Theme Toggle Logic
+        function toggleTheme() {
+            const body = document.body;
+            const themeBtnIcon = document.querySelector('#theme-btn i');
+            
+            if (body.classList.contains('light-theme')) {
+                body.classList.replace('light-theme', 'dark-theme');
+                themeBtnIcon.classList.replace('ph-moon', 'ph-sun');
+                localStorage.setItem('nexus-theme', 'dark');
+            } else {
+                body.classList.replace('dark-theme', 'light-theme');
+                themeBtnIcon.classList.replace('ph-sun', 'ph-moon');
+                localStorage.setItem('nexus-theme', 'light');
+            }
+            // Re-render charts to pick up new CSS variables
+            destroyCharts();
+            initCharts();
+        }
+
+        function checkThemePreference() {
+            const savedTheme = localStorage.getItem('nexus-theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.replace('light-theme', 'dark-theme');
+                document.querySelector('#theme-btn i').classList.replace('ph-moon', 'ph-sun');
+            }
+        }
+
+        let chartInstances = [];
+
+        function destroyCharts() {
+            chartInstances.forEach(chart => chart.destroy());
+            chartInstances = [];
+        }
+
+        // Initialize SaaS Style Charts
+        function initCharts() {
+            // Get CSS Variables for responsive charting
+            const root = getComputedStyle(document.body);
+            const gridColor = root.getPropertyValue('--border-color').trim();
+            const textColor = root.getPropertyValue('--text-muted').trim();
+            
+            const ctx1 = document.getElementById('eventsChart').getContext('2d');
+            
+            // Gradient for bar chart
+            let gradient1 = ctx1.createLinearGradient(0, 0, 0, 300);
+            gradient1.addColorStop(0, '#6366f1'); // Indigo
+            gradient1.addColorStop(1, 'rgba(99, 102, 241, 0.2)');
+
+            const eventsChart = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Blocked Events',
+                        data: [120, 190, 80, 250, 140, 50, 20],
+                        backgroundColor: gradient1,
+                        borderRadius: 6,
+                        barThickness: 25
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { 
+                            grid: { color: gridColor, drawBorder: false }, 
+                            ticks: { color: textColor },
+                            border: { display: false }
+                        },
+                        x: { 
+                            grid: { display: false, drawBorder: false }, 
+                            ticks: { color: textColor },
+                            border: { display: false }
+                        }
+                    }
+                }
+            });
+
+            const ctx2 = document.getElementById('osChart').getContext('2d');
+            const osChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Windows 11', 'Windows Server', 'Ubuntu', 'macOS'],
+                    datasets: [{
+                        data: [45, 25, 20, 10],
+                        backgroundColor: ['#6366f1', '#a5b4fc', '#cbd5e1', '#475569'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: { 
+                        legend: { 
+                            position: 'bottom',
+                            labels: { color: textColor, padding: 20, usePointStyle: true, boxWidth: 8 }
+                        } 
+                    }
+                }
+            });
+
+            chartInstances.push(eventsChart, osChart);
+        }
+    </script>
+</body>
+</html>
